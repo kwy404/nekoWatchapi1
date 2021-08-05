@@ -11,7 +11,7 @@ var homeController = new HomeController_1.default;
 var episodesController = new EpisodesController_1.default;
 routes.get('/', homeController.index);
 routes.get('/:page/:titulo/:peer', homeController.listar);
-routes.get('/get/player/:playerxphp/:dandwbGF5ZXI', homeController.player);
+routes.get('/get/player/:player', homeController.player);
 routes.get('/anime/:idAnime', episodesController.index);
 routes.get('/video/:idVideo', episodesController.video);
 routes.get('');

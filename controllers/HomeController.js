@@ -123,17 +123,15 @@ var HomeController = /** @class */ (function () {
     };
     HomeController.prototype.player = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, playerxphp, dandwbGF5ZXI, url, body;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var player, body;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
                     case 0:
-                        _a = request.params, playerxphp = _a.playerxphp, dandwbGF5ZXI = _a.dandwbGF5ZXI;
-                        console.log(playerxphp);
-                        console.log(dandwbGF5ZXI);
-                        url = "playerx?php=" + playerxphp + "=&d=" + dandwbGF5ZXI;
-                        return [4 /*yield*/, animeflvbr_1.playerB(url)];
+                        player = request.params.player;
+                        console.log(player);
+                        return [4 /*yield*/, animeflvbr_1.playerB("playerx?php=ODM2OTk=&d=andwbGF5ZXI=")];
                     case 1:
-                        body = _b.sent();
+                        body = _a.sent();
                         return [2 /*return*/, response.send(body.data)];
                 }
             });
