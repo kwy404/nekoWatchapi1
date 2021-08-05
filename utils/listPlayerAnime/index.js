@@ -56,7 +56,7 @@ function listPlayerAnime(idAnime) {
                     $ = cheerio_1.default.load(body.data);
                     nome = $(".pagEpiTitulo .mwidth h1").text();
                     video = (_a = $(".mContainer .left .playeranu #Link a").attr('href')) === null || _a === void 0 ? void 0 : _a.toString();
-                    video = "https://nekowatchapi1.herokuapp.com/playerx?php=" + (video === null || video === void 0 ? void 0 : video.split("=")[1]) + "=&d=" + (video === null || video === void 0 ? void 0 : video.split("=")[3]);
+                    video = "https://nekowatchapi1.herokuapp.com/get/player/" + (video === null || video === void 0 ? void 0 : video.split("=")[1]) + "/" + (video === null || video === void 0 ? void 0 : video.split("=")[3]);
                     dados = {
                         nome: nome,
                         video: video,
