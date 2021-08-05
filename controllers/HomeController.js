@@ -121,61 +121,20 @@ var HomeController = /** @class */ (function () {
             });
         });
     };
-    HomeController.prototype.filter = function (request, response) {
+    HomeController.prototype.player = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
-            var idGenero, body, $, animes;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        idGenero = request.params.idGenero;
-                        return [4 /*yield*/, animeflvbr_1.animesRequest.get("lista/filter/type/all/status/all/orderby/name/category/all/season/all/duration/all/year/all/studio/all/uploader/all/genres-" + idGenero)];
-                    case 1:
-                        body = _a.sent();
-                        $ = cheerio_1.default.load(body.data);
-                        animes = new Array();
-                        $('.loadscrollleft').find($('.ansArea').find('.item-an')).each(function (i, element) {
-                            var _a, _b;
-                            return __awaiter(this, void 0, void 0, function () {
-                                var idAnime, animeLink, photo, name;
-                                return __generator(this, function (_c) {
-                                    idAnime = (_a = $(element).find('.post').find('a').attr('href')) === null || _a === void 0 ? void 0 : _a.split('/')[2];
-                                    animeLink = (_b = $(element).find('.post').find('a').attr('href')) === null || _b === void 0 ? void 0 : _b.split('/')[3];
-                                    photo = "https://www.branitube.net" + $(element).find('.post').find('a').find('img').attr('src');
-                                    name = $(element).find('.namean').find('a').text();
-                                    animes.push({
-                                        name: name,
-                                        idAnime: idAnime,
-                                        animeLink: animeLink,
-                                        ultimaPagina: 1,
-                                        photo: photo.replace('300', '1200')
-                                    });
-                                    return [2 /*return*/];
-                                });
-                            });
-                        });
-                        return [2 /*return*/, response.json({ animes: animes })];
-                }
-            });
-        });
-    };
-    HomeController.prototype.getPaginasMax = function (request, response) {
-        return __awaiter(this, void 0, void 0, function () {
-            var _a, idAnime, animeLink, animePage, $, ultimaPagina;
+            var _a, playerxphp, dandwbGF5ZXI, url, body;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        _a = request.params, idAnime = _a.idAnime, animeLink = _a.animeLink;
-                        return [4 /*yield*/, animeflvbr_1.animesRequest.get("lista/" + idAnime + "/" + animeLink + "/1")];
+                        _a = request.params, playerxphp = _a.playerxphp, dandwbGF5ZXI = _a.dandwbGF5ZXI;
+                        console.log(playerxphp);
+                        console.log(dandwbGF5ZXI);
+                        url = "playerx?php=" + playerxphp + "=&d=" + dandwbGF5ZXI;
+                        return [4 /*yield*/, animeflvbr_1.playerB(url)];
                     case 1:
-                        animePage = _b.sent();
-                        $ = cheerio_1.default.load(animePage.data);
-                        $('.paginationContent ul').find('li').each(function (i, elementTwo) {
-                            var _a;
-                            if ($(elementTwo).find("a").text() == 'Última Página') {
-                                ultimaPagina = (_a = $(elementTwo).find("a").attr('href')) === null || _a === void 0 ? void 0 : _a.split('/')[5];
-                            }
-                        });
-                        return [2 /*return*/, response.json({ ultimaPagina: ultimaPagina })];
+                        body = _b.sent();
+                        return [2 /*return*/, response.send(body.data)];
                 }
             });
         });
