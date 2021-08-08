@@ -60,10 +60,22 @@ function listEpisodeAnime(idAnime) {
                     right = $(animeFlexContainer).find(".right");
                     sobre = $(right).find(".boxAnimeSobre");
                     arraySobre = $(sobre).find(".boxAnimeSobreLinha");
-                    formato = capitalizeFirstLetter($(arraySobre[0]).text().replace("Formato: ", ""));
-                    genero = capitalizeFirstLetter($(arraySobre[1]).text().replace("Gênero: ", "")).replace(" ", "").replace(" ", "").split(",");
-                    diaLancamento = capitalizeFirstLetter($(arraySobre[10]).text().replace("Dia de Lançamento: ", ""));
-                    ano = capitalizeFirstLetter($(arraySobre[11]).text().replace("Ano: ", ""));
+                    formato = null;
+                    genero = null;
+                    diaLancamento = null;
+                    ano = null;
+                    if ($(arraySobre[0]).text()) {
+                        formato = capitalizeFirstLetter($(arraySobre[0]).text().replace("Formato: ", ""));
+                    }
+                    if ($(arraySobre[1]).text()) {
+                        genero = capitalizeFirstLetter($(arraySobre[1]).text().replace("Gênero: ", "")).replace(" ", "").replace(" ", "").split(",");
+                    }
+                    if ($(arraySobre[10]).text()) {
+                        diaLancamento = capitalizeFirstLetter($(arraySobre[10]).text().replace("Dia de Lançamento: ", ""));
+                    }
+                    if ($(arraySobre[11]).text()) {
+                        ano = capitalizeFirstLetter($(arraySobre[11]).text().replace("Ano: ", ""));
+                    }
                     episodes = new Array();
                     episode = $(".pagAniLista .pagAniListaContainer").find("a").each(function (i, element) {
                         var _a;
