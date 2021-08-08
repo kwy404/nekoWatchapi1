@@ -42,17 +42,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var animeflvbr_1 = require("../../services/animeflvbr");
 var cheerio_1 = __importDefault(require("cheerio"));
 function listEpisodeAnime(idAnime) {
-    var _a, _b, _c, _d;
     return __awaiter(this, void 0, void 0, function () {
         function capitalizeFirstLetter(str) {
             return str;
         }
-        var body, $, photo, nome, animeFlexContainer, right, sobre, arraySobre, formato, genero, diaLancamento, ano, episodes, episode, apiKitsu, apiData, found, coverImage, photo_1, dados, dados;
-        return __generator(this, function (_e) {
-            switch (_e.label) {
+        var body, $, photo, nome, animeFlexContainer, right, sobre, arraySobre, formato, genero, diaLancamento, ano, episodes, episode, dados;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
                 case 0: return [4 /*yield*/, animeflvbr_1.animesRequest.get("" + idAnime)];
                 case 1:
-                    body = _e.sent();
+                    body = _a.sent();
                     $ = cheerio_1.default.load(body.data);
                     photo = $(".pagAniContainer #anime .animeFlexContainer .left #capaAnime img").attr("src");
                     nome = $(".pagAniTitulo .mwidth h1").text().replace(" – Todos os Episódios", "");
@@ -65,7 +64,7 @@ function listEpisodeAnime(idAnime) {
                     diaLancamento = null;
                     ano = null;
                     if ($(arraySobre[0]).text()) {
-                        formato = capitalizeFirstLetter($(arraySobre[0]).text().replace("Formato: ", ""));
+                        formato = capitalizeFirstLetter($(arraySobre[0]).text());
                     }
                     if ($(arraySobre[1]).text()) {
                         genero = capitalizeFirstLetter($(arraySobre[1]).text().replace("Gênero: ", "")).replace(" ", "").replace(" ", "").split(",");
@@ -74,7 +73,7 @@ function listEpisodeAnime(idAnime) {
                         diaLancamento = capitalizeFirstLetter($(arraySobre[10]).text().replace("Dia de Lançamento: ", ""));
                     }
                     if ($(arraySobre[11]).text()) {
-                        ano = capitalizeFirstLetter($(arraySobre[11]).text().replace("Ano: ", ""));
+                        ano = $(arraySobre[11]).text().replace("Ano: ", "");
                     }
                     episodes = new Array();
                     episode = $(".pagAniLista .pagAniListaContainer").find("a").each(function (i, element) {
@@ -92,46 +91,24 @@ function listEpisodeAnime(idAnime) {
                             });
                         });
                     });
-                    return [4 /*yield*/, animeflvbr_1.kitsu("anime?filter[text]=" + nome + "\"")];
-                case 2:
-                    apiKitsu = _e.sent();
-                    apiData = apiKitsu.data.data;
-                    if (nome) {
-                        found = apiData.find(function (e) {
-                            var _a, _b, _c;
-                            return ((_a = e.attributes.titles.en) === null || _a === void 0 ? void 0 : _a.toLowerCase()) == (nome === null || nome === void 0 ? void 0 : nome.toLowerCase()) ||
-                                ((_b = e.attributes.titles.en_jp) === null || _b === void 0 ? void 0 : _b.toLowerCase()) == (nome === null || nome === void 0 ? void 0 : nome.toLowerCase()) ||
-                                ((_c = e.attributes.titles.ja_jp) === null || _c === void 0 ? void 0 : _c.toLowerCase()) == (nome === null || nome === void 0 ? void 0 : nome.toLowerCase());
-                        });
-                        if (found) {
-                            coverImage = (_b = (_a = found === null || found === void 0 ? void 0 : found.attributes) === null || _a === void 0 ? void 0 : _a.coverImage) === null || _b === void 0 ? void 0 : _b.large;
-                            photo_1 = (_d = (_c = found === null || found === void 0 ? void 0 : found.attributes) === null || _c === void 0 ? void 0 : _c.posterImage) === null || _d === void 0 ? void 0 : _d.original;
-                            dados = {
-                                photo: photo_1,
-                                coverImage: coverImage,
-                                nome: nome,
-                                formato: formato,
-                                diaLancamento: diaLancamento,
-                                ano: ano,
-                                genero: genero,
-                                episodes: episodes,
-                            };
-                            return [2 /*return*/, dados];
-                        }
-                        else {
-                            dados = {
-                                photo: photo,
-                                nome: nome,
-                                formato: formato,
-                                diaLancamento: diaLancamento,
-                                ano: ano,
-                                genero: genero,
-                                episodes: episodes
-                            };
-                            return [2 /*return*/, dados];
-                        }
-                    }
-                    return [2 /*return*/];
+                    dados = {
+                        photo: photo,
+                        nome: nome,
+                        formato: formato,
+                        diaLancamento: diaLancamento,
+                        ano: ano,
+                        genero: genero,
+                        episodes: episodes
+                    };
+                    return [2 /*return*/, dados
+                        // return {
+                        //   animeName,
+                        //   thumb,
+                        //   synopsis,
+                        //   animesInformation,
+                        //   idEpisode
+                        // };
+                    ];
             }
         });
     });
