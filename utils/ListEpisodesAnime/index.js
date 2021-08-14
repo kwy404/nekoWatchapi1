@@ -46,7 +46,7 @@ function listEpisodeAnime(idAnime) {
         function capitalizeFirstLetter(str) {
             return str;
         }
-        var body, $, photo, nome, animeFlexContainer, right, sobre, arraySobre, formato, genero, diaLancamento, ano, episodes, episode, dados;
+        var body, $, photo, nome, animeFlexContainer, right, sobre, arraySobre, sinopse, tipoEp, formato, genero, diaLancamento, ano, episodes, episode, dados;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, animeflvbr_1.animesRequest.get("" + idAnime)];
@@ -59,6 +59,8 @@ function listEpisodeAnime(idAnime) {
                     right = $(animeFlexContainer).find(".right");
                     sobre = $(right).find(".boxAnimeSobre");
                     arraySobre = $(sobre).find(".boxAnimeSobreLinha");
+                    sinopse = $('#sinopse2').text() || null;
+                    tipoEp = $(arraySobre[5]).text() || null;
                     formato = null;
                     genero = null;
                     diaLancamento = null;
@@ -94,6 +96,8 @@ function listEpisodeAnime(idAnime) {
                     dados = {
                         photo: photo,
                         nome: nome,
+                        sinopse: sinopse,
+                        tipoEp: tipoEp,
                         formato: formato,
                         diaLancamento: diaLancamento,
                         ano: ano,
