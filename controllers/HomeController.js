@@ -97,7 +97,7 @@ var HomeController = /** @class */ (function () {
                         containerFavorito = $('.mwidth');
                         mainCarrouselMaisVisto = $(containerFavorito).find(".searchPagContainer");
                         totalPages = {};
-                        if ($(".page-numbers")) {
+                        if ($(".page-numbers").text().split("…").length > 1) {
                             totalPages = $(".page-numbers").text().split("…")[1].replace("Próximo »", "");
                         }
                         $(mainCarrouselMaisVisto).find('div').each(function (i, element) {
