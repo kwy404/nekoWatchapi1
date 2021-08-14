@@ -121,6 +121,44 @@ var HomeController = /** @class */ (function () {
             });
         });
     };
+    HomeController.prototype.launchDay = function (request, response) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, page, body, $, animes, containerFavorito, mainCarrouselMaisVisto;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = request.params.page, page = _a === void 0 ? 1 : _a;
+                        return [4 /*yield*/, animeflvbr_1.animesRequest.get("")];
+                    case 1:
+                        body = _b.sent();
+                        $ = cheerio_1.default.load(body.data);
+                        animes = new Array();
+                        containerFavorito = $('.aniContainer')[2];
+                        mainCarrouselMaisVisto = $(containerFavorito).find(".main-carousel");
+                        $(mainCarrouselMaisVisto).find('div').each(function (i, element) {
+                            var _a, _b;
+                            return __awaiter(this, void 0, void 0, function () {
+                                var idAnime, nomeAnime, imagemAnime;
+                                return __generator(this, function (_c) {
+                                    idAnime = (_a = $(element).find('a').attr('href')) === null || _a === void 0 ? void 0 : _a.split('/')[3];
+                                    if (idAnime) {
+                                        nomeAnime = (_b = $(element).find('a').attr('title')) === null || _b === void 0 ? void 0 : _b.split(' -')[0].replace(" – Todos os Episódios", "");
+                                        imagemAnime = $(element).find('a').find(".aniItemImg").find("img").attr('src');
+                                        animes.push({
+                                            idAnime: idAnime,
+                                            imagemAnime: imagemAnime,
+                                            nomeAnime: nomeAnime
+                                        });
+                                    }
+                                    return [2 /*return*/];
+                                });
+                            });
+                        });
+                        return [2 /*return*/, response.json({ animes: animes })];
+                }
+            });
+        });
+    };
     HomeController.prototype.player = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
             var player, body;

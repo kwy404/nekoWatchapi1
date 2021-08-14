@@ -14,5 +14,6 @@ routes.get('/:page/:titulo/:peer', homeController.listar);
 routes.get('/get/player/:player', homeController.player);
 routes.get('/anime/:idAnime', episodesController.index);
 routes.get('/video/:idVideo', episodesController.video);
+routes.get('/launchDay', homeController.launchDay);
 routes.get('');
 exports.default = routes;
