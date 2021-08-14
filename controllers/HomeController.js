@@ -84,7 +84,7 @@ var HomeController = /** @class */ (function () {
     };
     HomeController.prototype.listar = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, page, titulo, body, $, animes, containerFavorito, mainCarrouselMaisVisto;
+            var _a, page, titulo, body, $, animes, containerFavorito, mainCarrouselMaisVisto, totalPages;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
@@ -96,7 +96,10 @@ var HomeController = /** @class */ (function () {
                         animes = new Array();
                         containerFavorito = $('.mwidth');
                         mainCarrouselMaisVisto = $(containerFavorito).find(".searchPagContainer");
-                        console.log(mainCarrouselMaisVisto.length);
+                        totalPages = {};
+                        if ($(".page-numbers")) {
+                            totalPages = $(".page-numbers").text().split("…")[1].replace("Próximo »", "");
+                        }
                         $(mainCarrouselMaisVisto).find('div').each(function (i, element) {
                             var _a, _b;
                             return __awaiter(this, void 0, void 0, function () {
@@ -116,7 +119,8 @@ var HomeController = /** @class */ (function () {
                                 });
                             });
                         });
-                        return [2 /*return*/, response.json({ animes: animes })];
+                        return [2 /*return*/, response.json({ animes: animes,
+                                totalPages: totalPages })];
                 }
             });
         });
