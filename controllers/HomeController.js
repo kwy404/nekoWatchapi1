@@ -163,6 +163,127 @@ var HomeController = /** @class */ (function () {
             });
         });
     };
+    HomeController.prototype.dailyEpi = function (request, response) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, page, body, $, animes, containerFavorito;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = request.params.page, page = _a === void 0 ? 1 : _a;
+                        return [4 /*yield*/, animeflvbr_1.animesRequest.get("")];
+                    case 1:
+                        body = _b.sent();
+                        $ = cheerio_1.default.load(body.data);
+                        animes = new Array();
+                        containerFavorito = $('.epiSubContainer')[0];
+                        $(containerFavorito).find('div').each(function (i, element) {
+                            var _a, _b;
+                            return __awaiter(this, void 0, void 0, function () {
+                                var idEpisode, nomeAnime, imagemAnime;
+                                return __generator(this, function (_c) {
+                                    idEpisode = (_a = $(element).find('a').attr('href')) === null || _a === void 0 ? void 0 : _a.split('/')[3];
+                                    if (idEpisode) {
+                                        nomeAnime = (_b = $(element).find('a').attr('title')) === null || _b === void 0 ? void 0 : _b.split(' -')[0].replace(" – Todos os Episódios", "");
+                                        imagemAnime = $(element).find('a').find(".aniItemImg").find("img").attr('src');
+                                        animes.push({
+                                            idEpisode: idEpisode,
+                                            imagemAnime: imagemAnime,
+                                            nomeAnime: nomeAnime
+                                        });
+                                    }
+                                    return [2 /*return*/];
+                                });
+                            });
+                        });
+                        return [2 /*return*/, response.json({ animes: animes })];
+                }
+            });
+        });
+    };
+    HomeController.prototype.dublado = function (request, response) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, page, body, $, animes, containerFavorito, totalPages;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = request.params.page, page = _a === void 0 ? 1 : _a;
+                        page = page.toString();
+                        return [4 /*yield*/, animeflvbr_1.animesRequestDublado(page)];
+                    case 1:
+                        body = _b.sent();
+                        $ = cheerio_1.default.load(body.data);
+                        animes = new Array();
+                        containerFavorito = $('.listaPagAnimes')[0];
+                        $(containerFavorito).find('div').each(function (i, element) {
+                            var _a, _b;
+                            return __awaiter(this, void 0, void 0, function () {
+                                var idEpisode, nomeAnime, imagemAnime;
+                                return __generator(this, function (_c) {
+                                    idEpisode = (_a = $(element).find('a').attr('href')) === null || _a === void 0 ? void 0 : _a.split('/')[3];
+                                    if (idEpisode) {
+                                        nomeAnime = (_b = $(element).find('a').attr('title')) === null || _b === void 0 ? void 0 : _b.split(' -')[0].replace(" – Todos os Episódios", "");
+                                        imagemAnime = $(element).find('a').find(".aniItemImg").find("img").attr('src');
+                                        animes.push({
+                                            idEpisode: idEpisode,
+                                            imagemAnime: imagemAnime,
+                                            nomeAnime: nomeAnime
+                                        });
+                                    }
+                                    return [2 /*return*/];
+                                });
+                            });
+                        });
+                        totalPages = {};
+                        if ($(".page-numbers").text().split("…").length > 1) {
+                            totalPages = $(".page-numbers").text().split("…")[1].replace("Próximo »", "");
+                        }
+                        return [2 /*return*/, response.json({ animes: animes, totalPages: totalPages })];
+                }
+            });
+        });
+    };
+    HomeController.prototype.legendado = function (request, response) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, page, body, $, animes, containerFavorito, totalPages;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = request.params.page, page = _a === void 0 ? 1 : _a;
+                        page = page.toString();
+                        return [4 /*yield*/, animeflvbr_1.animesRequestLegendado(page)];
+                    case 1:
+                        body = _b.sent();
+                        $ = cheerio_1.default.load(body.data);
+                        animes = new Array();
+                        containerFavorito = $('.listaPagAnimes')[0];
+                        $(containerFavorito).find('div').each(function (i, element) {
+                            var _a, _b;
+                            return __awaiter(this, void 0, void 0, function () {
+                                var idEpisode, nomeAnime, imagemAnime;
+                                return __generator(this, function (_c) {
+                                    idEpisode = (_a = $(element).find('a').attr('href')) === null || _a === void 0 ? void 0 : _a.split('/')[3];
+                                    if (idEpisode) {
+                                        nomeAnime = (_b = $(element).find('a').attr('title')) === null || _b === void 0 ? void 0 : _b.split(' -')[0].replace(" – Todos os Episódios", "");
+                                        imagemAnime = $(element).find('a').find(".aniItemImg").find("img").attr('src');
+                                        animes.push({
+                                            idEpisode: idEpisode,
+                                            imagemAnime: imagemAnime,
+                                            nomeAnime: nomeAnime
+                                        });
+                                    }
+                                    return [2 /*return*/];
+                                });
+                            });
+                        });
+                        totalPages = {};
+                        if ($(".page-numbers").text().split("…").length > 1) {
+                            totalPages = $(".page-numbers").text().split("…")[1].replace("Próximo »", "");
+                        }
+                        return [2 /*return*/, response.json({ animes: animes, totalPages: totalPages })];
+                }
+            });
+        });
+    };
     HomeController.prototype.player = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
             var player, body;
@@ -170,7 +291,6 @@ var HomeController = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         player = request.params.player;
-                        console.log(player);
                         return [4 /*yield*/, animeflvbr_1.playerB("playerx?php=ODM2OTk=&d=andwbGF5ZXI=")];
                     case 1:
                         body = _a.sent();
