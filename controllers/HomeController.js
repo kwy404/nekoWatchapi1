@@ -222,7 +222,7 @@ var HomeController = /** @class */ (function () {
                                     idEpisode = (_a = $(element).find('a').attr('href')) === null || _a === void 0 ? void 0 : _a.split('/')[3];
                                     if (idEpisode) {
                                         nomeAnime = (_b = $(element).find('a').attr('title')) === null || _b === void 0 ? void 0 : _b.split(' -')[0].replace(" – Todos os Episódios", "");
-                                        imagemAnime = $(element).find('a').find(".aniItemImg").find("img").attr('src');
+                                        imagemAnime = $(element).find('a').find(".epiItemImg").find("img").attr('src');
                                         animes.push({
                                             idEpisode: idEpisode,
                                             imagemAnime: imagemAnime,
