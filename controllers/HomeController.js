@@ -284,6 +284,48 @@ var HomeController = /** @class */ (function () {
             });
         });
     };
+    HomeController.prototype.letra = function (request, response) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, _b, page, _c, letra, body, $, animes, containerFavorito, totalPages;
+            return __generator(this, function (_d) {
+                switch (_d.label) {
+                    case 0:
+                        _a = request.params, _b = _a.page, page = _b === void 0 ? 1 : _b, _c = _a.letra, letra = _c === void 0 ? 'a' : _c;
+                        page = page.toString();
+                        return [4 /*yield*/, animeflvbr_1.animeRequestLetter(page, letra)];
+                    case 1:
+                        body = _d.sent();
+                        $ = cheerio_1.default.load(body.data);
+                        animes = new Array();
+                        containerFavorito = $('.listaPagAnimes')[0];
+                        $(containerFavorito).find('div').each(function (i, element) {
+                            var _a, _b;
+                            return __awaiter(this, void 0, void 0, function () {
+                                var idEpisode, nomeAnime, imagemAnime;
+                                return __generator(this, function (_c) {
+                                    idEpisode = (_a = $(element).find('a').attr('href')) === null || _a === void 0 ? void 0 : _a.split('/')[3];
+                                    if (idEpisode) {
+                                        nomeAnime = (_b = $(element).find('a').attr('title')) === null || _b === void 0 ? void 0 : _b.split(' -')[0].replace(" – Todos os Episódios", "");
+                                        imagemAnime = $(element).find('a').find(".aniItemImg").find("img").attr('src');
+                                        animes.push({
+                                            idEpisode: idEpisode,
+                                            imagemAnime: imagemAnime,
+                                            nomeAnime: nomeAnime
+                                        });
+                                    }
+                                    return [2 /*return*/];
+                                });
+                            });
+                        });
+                        totalPages = {};
+                        if ($(".page-numbers").text().split("…").length > 1) {
+                            totalPages = $(".page-numbers").text().split("…")[1].replace("Próximo »", "");
+                        }
+                        return [2 /*return*/, response.json({ animes: animes, totalPages: totalPages })];
+                }
+            });
+        });
+    };
     HomeController.prototype.player = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
             var player, body;

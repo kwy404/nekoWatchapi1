@@ -18,6 +18,7 @@ routes.get('/launchDay', homeController.launchDay);
 routes.get('/dailyEpi', homeController.dailyEpi);
 routes.get('/dublado/:page', homeController.dublado);
 routes.get('/legendado/:page', homeController.legendado);
+routes.get('/:page/letra/:letra/home', homeController.letra);
 routes.get('/dublado/', homeController.dublado);
 routes.get('/legendado/', homeController.legendado);
 routes.get('');
