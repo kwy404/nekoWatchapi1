@@ -55,7 +55,7 @@ function listPlayerAnime(idAnime) {
                     body = _b.sent();
                     $ = cheerio_1.default.load(body.data);
                     nome = $(".pagEpiTitulo .mwidth h1").text();
-                    video = (_a = $(".mContainer .left .playeranu #Link a").attr('href')) === null || _a === void 0 ? void 0 : _a.toString();
+                    video = (_a = $(".pagEpiAbasContainer iframe").attr('src')) === null || _a === void 0 ? void 0 : _a.toString();
                     dados = {
                         nome: nome,
                         video: video,
